@@ -1,11 +1,11 @@
-# Descomplicando o Kubernetes
+# Uncomplicating Kubernetes
 &nbsp;
-## DAY-1: O que é o Kubernetes?
+## DAY-1: What is kubernetes?
 &nbsp;
 
-### Conteúdo do Day-1
+### Day-1 Contents
 
-- [Descomplicando o Kubernetes](#descomplicando-o-kubernetes)
+- [Uncomplicating Kubernetes](#descomplicando-o-kubernetes)
   - [DAY-1](#day-1)
     - [O que iremos ver hoje?](#o-que-iremos-ver-hoje)
     - [Inicio da aula do Day-1](#inicio-da-aula-do-day-1)
