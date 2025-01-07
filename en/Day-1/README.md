@@ -7,11 +7,11 @@
 
 - [Uncomplicating Kubernetes](#descomplicando-o-kubernetes)
   - [DAY-1](#day-1)
-    - [What we will see today](#o-que-iremos-ver-hoje)
-    - [Start of Day-1 class](#inicio-da-aula-do-day-1)
-    - [Which GNU/Linux distro should i use?](#qual-distro-gnulinux-devo-usar)
-    - [Some sites to visit](#alguns-sites-que-devemos-visitar)
-    - [The Container Engine](#o-container-engine)
+    - [What we will see today](#What-we-will-see-today?)
+    - [Start of Day-1 class](#Start-of-Day-1-class)
+    - [Which GNU/Linux distro should i use?](#Which-GNU/Linux-distro-should-i-use?)
+    - [Some sites to visit](#Some-sites-to-visit)
+    - [The Container Engine](#The-Container-Engine)
       - [OCI - Open Container Initiative](#oci---open-container-initiative)
       - [The Container Runtime](#o-container-runtime)
     - [What is Kubernetes?](#o-que-é-o-kubernetes)
@@ -57,21 +57,19 @@
 &nbsp;
 
 
-### O que iremos ver hoje?
+### What we will see today?
 
-Durante o Day-1 exploraremos o conceito de containers, discutiremos a relevância do container runtime e do container engine. Além disso, vamos entender o que é o Kubernetes e sua arquitetura, falaremos sobre o control plane, workers, apiserver, scheduler, controller e muito mais!
-Será aqui que iremos criar o nosso primeiro cluster Kubernetes e realizar o deploy de um pod do Nginx. 
-O Day-1 é para que você possa se sentir mais confortável com o Kubernetes e seus conceitos iniciais.
+During Day-1 we will explore the concept of containers, discuss the relevance of the container runtime and the container engine. In addition, we'll understand what Kubernetes is and its architeture, we'll talk about the control plane, workers, ApiServer, scheduler, controller and much more!
 &nbsp;
-### Inicio da aula do Day-1
+### Start of Day-1 class
 &nbsp;
-### Qual distro GNU/Linux devo usar?
+### Which GNI/Linux distro shoul I use?
 
-Considerando que ferramentas essenciais, como o ``systemd`` e ``journald``, agora são amplamente adotadas como padrão nas principais distribuições disponíveis, como Ubuntu, Debian, CentOS, entre outras, você não deverá enfrentar dificuldades ao seguir o treinamento utilizando qualquer uma delas.
+Considering that essential tools such as "systemd" and "journald" are now widely adotados as standard in the main distribuitions available, such as Ubuntu, Debian, CentOS, among others, you should face no difficulties when following the training using any of them
 &nbsp;
-### Alguns sites que devemos visitar
+### Some sites to visit
 
-Abaixo temos os sites oficiais do projeto do Kubernetes:
+Bellow are the official Kubernetes project websites:
 
 - [https://kubernetes.io](https://kubernetes.io)
 
@@ -80,7 +78,7 @@ Abaixo temos os sites oficiais do projeto do Kubernetes:
 - [https://github.com/kubernetes/kubernetes/issues](https://github.com/kubernetes/kubernetes/issues)
 
 &nbsp;
-Abaixo temos as páginas oficiais das certificações do Kubernetes (CKA, CKAD e CKS):
+Below are the official pages for the Kubernetes certifications (CKA, CKAD and CKS):
 
 - [https://www.cncf.io/certification/cka/](https://www.cncf.io/certification/cka/)
 
@@ -89,7 +87,7 @@ Abaixo temos as páginas oficiais das certificações do Kubernetes (CKA, CKAD e
 - [https://www.cncf.io/certification/cks/](https://www.cncf.io/certification/cks/)
 
 &nbsp;
-### O Container Engine
+### The Container Engine
 
 Antes de começar a falar um pouco mais sobre o Kubernetes, nós primeiro precisamos entender alguns componentes que são importantes no ecossistema do Kubernetes, um desses componentes é o Container Engine. 
 
