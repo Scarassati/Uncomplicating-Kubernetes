@@ -4,7 +4,7 @@
 &nbsp;
 
 ### Day-1 Contents
-
+- [Uncomplicating Kubernetes](#uncomplicating-kubernetes)
     - [What we will see today](#What-we-will-see-today?)
     - [Start of Day-1 class](#Start-of-Day-1-class)
     - [Which GNU/Linux distro should i use?](#Which-GNU/Linux-distro-should-i-use?)
