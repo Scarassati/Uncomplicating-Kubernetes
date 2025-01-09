@@ -5,8 +5,6 @@
 
 ### Day-1 Contents
 
-- [Uncomplicating Kubernetes](#descomplicando-o-kubernetes)
-  - [DAY-1](#day-1)
     - [What we will see today](#What-we-will-see-today?)
     - [Start of Day-1 class](#Start-of-Day-1-class)
     - [Which GNU/Linux distro should i use?](#Which-GNU/Linux-distro-should-i-use?)
@@ -573,7 +571,7 @@ As you can see, there are two *services* in our *cluster*: the first is for use 
 
 &nbsp;
 
-#### Limpando tudo e indo para casa
+#### Cleaning up and going home
 
 To show all the newly created resources, you can use one of the following options.
 
