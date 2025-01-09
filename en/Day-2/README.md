@@ -5,147 +5,147 @@
 
 
 &nbsp;
-### Inicio da aula do Day-2
+### Start of class Day-2
 &nbsp;
 
-### O que iremos ver hoje?
+### What we will see today
 
-Durante a aula de hoje, iremos ver todos os detalhes importantes sobre o menor objeto do Kubernetes, o Pod.
-Vamos ver desde a criação de um simples Pod, passando por Pod com multicontainers, com volumes e ainda com limitação ao consumo de recursos, como CPU ou memória.
-E claro, vamos aprender como ver todos os detalhes de um Pod em execução e brincar bastante com nossos arquivos YAML.
+In today lesson, we'll look at all the important details abou the smallest kubernetes object, the Pod.
+We'll see everything from creating a simple Pod, to Pods with multicontainers, with volumes and even with limited resource consumption, such as CPU or memory.
+And of course, we'll learn how to see all the details of a running Pod and play around with our YAML files
 
-### O que é um Pod?
+### What is a Pod?
 
 
-Primeira coisa, o Pod é a menor unidade dentro de um cluster Kubernetes.
+The pod is the smallest unit within a kubernetes cluster
 
-Quando estamos falando sobre Pod, precisamos pensar que o Pod é uma caixinha que contém um ou mais containers. E esses containers compartilham os mesmos recursos do Pod, como por exemplo, o IP, o namespace, o volume, etc.
+When we're talking about Pods, we need to think of a Pod as a little box containing one or more containers. And these containers share the same resources as the Pod, such as IP, namespace, volume, etc.
 
-Então, quando falamos de Pod, estamos falando de um ou mais containers que compartilham os mesmos recursos, ponto.
+So when we talk about Pod, we're talking about one or more containers that share the same resources, period.
 
 &nbsp;
 
-#### Criando um Pod
+#### Creating a Pod
 
-Temos basicamente duas formas de criar um Pod, a primeira é através de um comando no terminal e a segunda é através de um arquivo YAML.
+There are basically two way to create a Pod
 
-Vamos começar criando um Pod através de um comando no terminal.
+Let's start by creating a Pod using a command in the terminal.
 
 ```bash
 kubectl run giropops --image=nginx --port=80
 ```
 
-O comando acima irá criar um Pod chamado giropops, com uma imagem do nginx e com a porta 80 exposta.
+the above command will create a Pod called giropops, with an image of nginx and port 80 exposed
 
 
-#### Visualizando detalhes sobre os Pods
+#### Visualizing details about the Pods
 
-Para ver o Pod criado, podemos usar o comando:
+to see the Pod created, we can use the command:
 
 ```bash
 kubectl get pods
 ```
 
-O comando acima irá listar todos os Pods que estão em execução no cluster, na namespace default.
+the above command will list all the Pods running in the cluster, in the default namespace
 
-Sim, temos namespaces no Kubernetes, mas isso é assunto para outro dia. Por enquanto, vamos focar em Pods e apenas temos que saber que por padrão, o Kubernetes irá criar todos os objetos dentro da namespace default se não especificarmos outra.
+Yes, we have namespaces in Kubernetes, but that's a topic for another day. For now, let's focus on Pods and just know that by default, Kubernetes will create all objects within the default namespace if we don't specify another one
 
-Para ver os Pods em execução em todas as namespaces, podemos usar o comando:
+To see the Pods running in all namespaces, we can use the command:
 
 ```bash
 kubectl get pods --all-namespaces
 ```
 
-Ou ainda, podemos usar o comando:
+Or we can use the command:
 
 ```bash
 kubectl get pods -A
 ```
 
-Agora, se você quiser ver todos os Pods de uma namespace específica, você pode usar o comando:
+Now, if you want to see all the Pods in a specific namespace, you can use the comand:
 
 ```bash
 kubectl get pods -n <namespace>
 ```
 
-Por exemplo:
+For example:
 
 ```bash
 kubectl get pods -n kube-system
 ```
 
-O comando acima irá listar todos os Pods que estão em execução na namespace kube-system, que é a namespace onde o Kubernetes irá criar todos os objetos relacionados ao cluster, como por exemplo, os Pods do CoreDNS, do Kube-Proxy, do Kube-Controller-Manager, do Kube-Scheduler, etc.
+The above command will list all the Pods that are running in the kube-system namespace, which is the namespace where Kubernetes will create all the objects related to the cluster, such as the CoreDNS Pods, the Kube-Proxy Pods, the Kube-Controller-Manager, the Kube-Scheduler Pods, etc.
 
-Caso você queira ver ainda mais detalhes sobre o Pod, você pode pedir para o Kubernetes mostrar os detalhes do Pod em formato YAML, usando o comando:
+If you want to see even more details about the Pod, you can ask Kubernetes to display the Pod's details in YAML format using the command:
 
 ```bash
 kubectl get pods <nome-do-pod> -o yaml
 ```
 
-Por exemplo:
+For example:
 
 ```bash
 kubectl get pods giropops -o yaml
 ```
 
-O comando acima mostrará todos os detalhes do Pod em formato YAML, praticamente igual ao que você verá no arquivo YAML que utilizaremos a seguir para criar o Pod. Porém terá alguns detalhes a mais, como por exemplo, o UID do Pod, o nome do Node onde o Pod está sendo executado, etc. Afinal, esse Pod já está em execução, então o Kubernetes já tem mais detalhes sobre ele.
+The command above will show all the Pod's details in YAML format, practically the same as what you'll see in the YAML file we'll use next to create the Pod. However, it will have a few more details, such as the Pod's UID, the name of the Node where the Pod is running, etc. After all, this Pod is already running, so Kubernetes already has more details about it.
 
-Uma outra saída interessante é a saída em formato JSON, que você pode ver usando o comando:
+Another interesting output is the output in JSON format, which you can see using the command:
 
 ```bash
 kubectl get pods <nome-do-pod> -o json
 ```
 
-Por exemplo:
+For example:
 
 ```bash
 kubectl get pods giropops -o json
 ```
 
-Ou seja, utilizando o parametro -o, você pode escolher o formato de saída que você quer ver, por exemplo, yaml, json, wide, etc.
+Using the ''-o'' parameter, you can choose the output format you want to see, for example, YAML, JSON, wide, etc.
 
-Ahh, a saída wide é interessante, pois ela mostra mais detalhes sobre o Pod, como por exemplo, o IP do Pod e o Node onde o Pod está sendo executado.
+Ahh, the wide output is interesting because it shows more details about the Pod, such as the Pod's IP and the Node where the Pod is running
 
 ```bash
 kubectl get pods <nome-do-pod> -o wide
 ```
 
-Por exemplo:
+for example
 
 ```bash
 kubectl get pods giropops -o wide
 ```
 
-Agora, se você quiser ver os detalhes do Pod, mas sem precisar usar o comando get, você pode usar o comando:
+Now, if you want to see the Pod's details, but without having to use the get command, you can use the command:
 
 ```bash
 kubectl describe pods <nome-do-pod>
 ```
 
-Por exemplo:
+For example:
 
 ```bash
 kubectl describe pods giropops
 ```
 
-Com o `describe` você pode ver todos os detalhes do Pod, inclusive os detalhes do container que está dentro do Pod.
+With 'descibe' you can see all the details of the Pod, including the details of the container inside the Pod
 
 
-#### Removendo um Pod
+#### Removing a Pod
 
-Agora vamos remover o Pod que criamos, usando o comando:
+Now let's remove the Pod we created, using the command:
 
 ```bash
 kubectl delete pods giropops
 ```
 
-Fácil né? Agora, vamos criar um Pod através de um arquivo YAML.
+Easy, right? Now, Let'go create the Pod through a Yaml file
 
 &nbsp;
 
-#### Criando um Pod através de um arquivo YAML
+#### Create a Pod through a Yaml file
 
-Vamos criar um arquivo YAML chamado pod.yaml com o seguinte conteúdo:
+Let's create a Yaml file called pod.yaml with the following content
 
 ```yaml
 apiVersion: v1 # versão da API do Kubernetes
