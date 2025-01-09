@@ -28,18 +28,17 @@
     - [Creating a Kubernetes Cluster](#Creating-a-Kubernetes-Cluster)
     - [Creating the cluster on your local machine](#Creating-the-cluster-on-your-local-machine)
       - [Kind](#kind)
-        - [Installation on GNU/Linux](#instalação-no-gnulinux)
-        - [Installation on MacOS](#instalação-no-macos)
-        - [Installation on Windows](#instalação-no-windows)
-          - [Installation on Windows via Chocolatey](#instalação-no-windows-via-chocolatey)
-        - [Create a cluster with Kind](#criando-um-cluster-com-o-kind)
-        - [Creating a cluster with multiples local nodes with Kind](#criando-um-cluster-com-múltiplos-nós-locais-com-o-kind)
-    - [First Steps on the k8s](#primeiros-passos-no-k8s)
-        - [Checking the namespaces and pods](#verificando-os-namespaces-e-pods)
-        - [Running our first pod on k8s](#executando-nosso-primeiro-pod-no-k8s)
-        - [Running our first pod on k8s](#executando-nosso-primeiro-pod-no-k8s-1)
-      - [Exposing the pod and creating a Service](#expondo-o-pod-e-criando-um-service)
-      - [Cleaning up and going home](#limpando-tudo-e-indo-para-casa)
+        - [Installation on GNU/Linux](#Installation-on-GNU/Linux)
+        - [Installation on MacOS](#Installation-on-MacOS)
+        - [Installation on Windows](#Installation-on-Windows)
+          - [Installation on Windows via Chocolatey](#Installation-on-Windows-via-Chocolatey)
+        - [Create a cluster with Kind](#Create-a-cluster-with-Kind)
+        - [Creating a cluster with multiples local nodes with Kind](#Creating-a-cluster-with-multiples-local-nodes-with-Kind)
+    - [First Steps on the k8s](#First-steps-on-the-k8s)
+        - [Checking the namespaces and pods](#Checking-namespaces-and-pods)
+        - [Running our first pod on k8s](#Running-our-first-pod-on-k8s)
+      - [Exposing the pod and creating a Service](#Exposing-the-pod-and-creating-a-Service)
+      - [Cleaning up and going home](#Cleaning-up-and-going-home)
 
 &nbsp;
 
@@ -281,11 +280,11 @@ We're going to show you a few options, in case you want to start playing with Ku
 
 #### Kind
 
-O Kind (*Kubernetes in Docker*) é outra alternativa para executar o Kubernetes num ambiente local para testes e aprendizado, mas não é recomendado para uso em produção.
+Kind (*Kubernetes in Docker*) is another alternative for running Kubernetes in a local environment for testing and learning, but it is not recommended for production use.
 
-##### Instalação no GNU/Linux
+##### Installation on GNU/Linux
 
-Para fazer a instalação no GNU/Linux, execute os seguintes comandos.
+To install it on GNU/Linux, run the following commands.
 
 ```
 curl -Lo ./kind https://kind.sigs.k8s.io/dl/v0.20.0/kind-linux-amd64
@@ -295,9 +294,9 @@ chmod +x ./kind
 sudo mv ./kind /usr/local/bin/kind
 ```
 &nbsp;
-##### Instalação no MacOS
+##### Installation on MacOS
 
-Para fazer a instalação no MacOS, execute o seguinte comando.
+To install on macOS, run the following command.
 
 ```
 sudo brew install kind
@@ -311,27 +310,24 @@ chmod +x ./kind
 mv ./kind /usr/bin/kind
 ```
 &nbsp;
-##### Instalação no Windows
+##### Installation on Windows
 
-Para fazer a instalação no Windows, execute os seguintes comandos.
-
+To install it on Windows, run the following commands.
 ```
 curl.exe -Lo kind-windows-amd64.exe https://kind.sigs.k8s.io/dl/v0.20.0/kind-windows-amd64
 Move-Item .\kind-windows-amd64.exe c:\kind.exe
 ```
 &nbsp;
-###### Instalação no Windows via Chocolatey
+###### Installation on Windows via Chocolatey
 
-Execute o seguinte comando para instalar o Kind no Windows usando o Chocolatey.
-
+Run the following command to install Kind on Windows using Chocolatey.
 ```
 choco install kind
 ```
 &nbsp;
-##### Criando um cluster com o Kind
+##### Create a cluster with Kind
 
-Após realizar a instalação do Kind, vamos iniciar o nosso cluster.
-
+After installing Kind, let's start our cluster.
 ```
 kind create cluster
 
@@ -351,7 +347,7 @@ Not sure what to do next? 😅  Check out https://kind.sigs.k8s.io/docs/user/qui
 
 ```
 &nbsp;
-É possível criar mais de um cluster e personalizar o seu nome.
+You can create more than one cluster and customize its name.
 
 ```
 kind create cluster --name giropops
@@ -371,7 +367,7 @@ kubectl cluster-info --context kind-giropops
 Thanks for using kind! 😊
 ```
 &nbsp;
-Para visualizar os seus clusters utilizando o kind, execute o comando a seguir.
+To visualize your clusters using kind, run the following command.
 
 ```
 kind get clusters
@@ -383,11 +379,11 @@ Liste os nodes do cluster.
 kubectl get nodes
 ```
 &nbsp;
-##### Criando um cluster com múltiplos nós locais com o Kind
+##### Creating a cluster with multiples local nodes with Kind
 
-É possível para essa aula incluir múltiplos nós na estrutura do Kind, que foi mencionado anteriormente.
+It is possible for this class to include multiple nodes in the Kind structure, which was mentioned earlier.
 
-Execute o comando a seguir para selecionar e remover todos os clusters locais criados no Kind.
+Run the following command to select and remove all local clusters created in Kind.
 
 ```
 kind delete clusters $(kind get clusters)
@@ -395,7 +391,7 @@ kind delete clusters $(kind get clusters)
 Deleted clusters: ["giropops" "kind"]
 ```
 &nbsp;
-Crie um arquivo de configuração para definir quantos e quais os tipos de nós que você deseja criar no cluster. No exemplo a seguir, será criado o arquivo de configuração ``kind-3nodes.yaml`` para especificar um cluster com 1 nó control-plane (que executará o control plane) e 2 workers.
+Create a configuration file to define how many and what types of nodes you want to create in the cluster. In the following example, the ``kind-3nodes.yaml`` configuration file will be created to specify a cluster with 1 control-plane node (which will run the control plane) and 2 workers.
 
 ```
 cat << EOF > $HOME/kind-3nodes.yaml
@@ -408,7 +404,7 @@ nodes:
 EOF
 ```
 &nbsp;
-Agora vamos criar um cluster chamado ``kind-multinodes`` utilizando as especificações definidas no arquivo ``kind-3nodes.yaml``.
+Now let's create a cluster called ``kind-multinodes`` using the specifications defined in the ``kind-3nodes.yaml`` file..
 
 ```
 kind create cluster --name kind-multinodes --config $HOME/kind-3nodes.yaml
@@ -429,47 +425,46 @@ kubectl cluster-info --context kind-kind-multinodes
 Have a question, bug, or feature request? Let us know! https://kind.sigs.k8s.io/#community 🙂
 ```
 &nbsp;
-Valide a criação do cluster com o comando a seguir.
+Validate the creation of the cluster with the following command.
 
 ```
 kubectl get nodes
 ```
 &nbsp;
-Mais informações sobre o Kind estão disponíveis em: https://kind.sigs.k8s.io
+More information about Kind is available at: https://kind.sigs.k8s.io
 
 &nbsp;
-### Primeiros passos no k8s
+### First steps on the k8s
 &nbsp;
 
-##### Verificando os namespaces e pods
+##### Checking namespaces and pods
 
-O k8s organiza tudo dentro de *namespaces*. Por meio deles, podem ser realizadas limitações de segurança e de recursos dentro do *cluster*, tais como *pods*, *replication controllers* e diversos outros. Para visualizar os *namespaces* disponíveis no *cluster*, digite:
-
+k8s organizes everything within *namespaces*. Through them, security and resource limitations can be made within the *cluster*, such as *pods*, *replication controllers* and various others. To view the *namespaces* available in the *cluster*, type:
 ```
 kubectl get namespaces
 ```
 &nbsp;
-Vamos listar os *pods* do *namespace* **kube-system** utilizando o comando a seguir.
+Let's list the *pods* of the *namespace* **kube-system** using the following command.
 
 ```
 kubectl get pod -n kube-system
 ```
 &nbsp;
-Será que há algum *pod* escondido em algum *namespace*? É possível listar todos os *pods* de todos os *namespaces* com o comando a seguir.
+Is there a *pod* hidden in a *namespace*? You can list all the *pods* in all the *namespaces* with the following command.
 
 ```
 kubectl get pods -A
 ```
 &nbsp;
-Há a possibilidade ainda, de utilizar o comando com a opção ```-o wide```, que disponibiliza maiores informações sobre o recurso, inclusive em qual nó o *pod* está sendo executado. Exemplo:
+There is also the possibility of using the command with the ```o wide`` option, which provides more information about the resource, including which node the *pod* is running on. Example:
 
 ```
 kubectl get pods -A -o wide
 ```
 &nbsp;
-##### Executando nosso primeiro pod no k8s
+##### Running our first pod on k8s
 
-Iremos iniciar o nosso primeiro *pod* no k8s. Para isso, executaremos o comando a seguir.
+We're going to start our first *pod* on the k8s. To do this, run the following command.
 
 ```
 kubectl run nginx --image nginx
@@ -477,80 +472,79 @@ kubectl run nginx --image nginx
 pod/nginx created
 ```
 &nbsp;
-Listando os *pods* com ``kubectl get pods``, obteremos a seguinte saída.
+Listing the *pods* with ``kubectl get pods`` gives the following output.
 
 ```
 NAME    READY   STATUS    RESTARTS   AGE
 nginx   1/1     Running   0          66s
 ```
 &nbsp;
-Vamos agora remover o nosso *pod* com o seguinte comando.
+Let's now remove our *pod* with the following command.
 
 ```
 kubectl delete pod nginx
 ```
 &nbsp;
-A saída deve ser algo como:
+The output should be something like:
 
 ```
 pod "nginx" deleted
 ```
 &nbsp;
 
-##### Executando nosso primeiro pod no k8s utilizando um arquivo manifesto
+##### Running our first pod on k8s using a manifest file
 
 
-Uma outra forma de criar um pod ou qualquer outro objeto no Kubernetes é através da utilizaçâo de uma arquivo manifesto, que é uma arquivo em formato YAML onde você passa todas as definições do seu objeto. Mas pra frente vamos falar mais sobre como construir arquivos manifesto, mas agora eu quero que você conheça a opção ``--dry-run`` do ``kubectl``, com ela podemos simular a criação de um resource e ainda ter um manifesto criado automaticamente. 
+Another way to create a pod or any other object in Kubernetes is by using a manifest file, which is a file in YAML format where you pass all the definitions of your object. Later on, we'll talk more about how to build manifest files, but now I want you to know about the ``--dry-run`` option in ``kubectl``, with which we can simulate the creation of a resource and still have a manifest created automatically.  
 
-Para a criação do template de um *pod*:
+To create a *pod* template:
 
 ```
 kubectl run meu-nginx --image nginx --dry-run=client -o yaml > pod-template.yaml
 ```
 &nbsp;
-Estamos utilizando o parametro '-o' para modificar a saída para o formato YAML e redirecionando a saída para um arquivo chamado 'pod-template.yaml'.
+We are using the '-o' parameter to change the output to YAML format and redirecting the output to a file called 'pod-template.yaml'.
 
-Para a criação do *template* de um *deployment*:
+To create the *template* of a *deployment*:
 
-Com o arquivo gerado em mãos, agora você consegue criar um pod utilizando o manifesto que criamos da seguinte forma:
+With the generated file in hand, you can now create a pod using the manifest we created as follows:
 
 ```
 kubectl apply -f pod-template.yaml
 ```
 
-Não se preocupe por enquanto com o parametro 'apply', nós ainda vamos falar com mais detalhes sobre ele, nesse momento o importante é você saber que ele é utilizado para criar novos resources através de arquivos manifestos.
-
+Don't worry about the 'apply' parameter just yet, we're going to talk about it in more detail, right now the important thing is that you know it's used to create new resources through manifest files.
 &nbsp;
 
-#### Expondo o pod e criando um Service
+#### Exposing the pod and creating a Service
 
-Dispositivos fora do *cluster*, por padrão, não conseguem acessar os *pods* criados, como é comum em outros sistemas de contêineres. Para expor um *pod*, execute o comando a seguir.
+Devices outside the *cluster*, by default, cannot access the *pods* created, as is common in other container systems. To expose a *pod*, run the following command.
 
 ```
 kubectl expose pod nginx
 ```
 
-Será apresentada a seguinte mensagem de erro:
+The following error message will be displayed:
 
 ```
 error: couldn't find port via --port flag or introspection
 See 'kubectl expose -h' for help and examples
 ```
 
-O erro ocorre devido ao fato do k8s não saber qual é a porta de destino do contêiner que deve ser exposta (no caso, a 80/TCP). Para configurá-la, vamos primeiramente remover o nosso *pod* antigo:
+The error occurs because k8s doesn't know which of the container's destination ports to expose (in this case, 80/TCP). To configure it, let's first remove our old *pod*:
 
 ```
 kubectl delete -f pod-template.yaml
 ```
 
-Agora vamos executar novamente o comando para a criação do pod utilizando o parametro 'dry-run', adicionando o parametro '--port' para dizer qual a porta que o container está escutando, lembrando que estamos utilizando o nginx nesse exemplo, um webserver que escuta por padrão na porta 80.
+Now let's re-run the command to create the pod using the 'dry-run' parameter, adding the '--port' parameter to tell it which port the container is listening on, remembering that we are using nginx in this example, a webserver that listens on port 80 by default.
 
 ```
 kubectl run meu-nginx --image nginx --port 80 --dry-run=client -o yaml > pod-template.yaml
 kubectl create -f pod-template.yaml
 ```
 
-Liste os pods.
+List the pods.
 
 ```
 kubectl get pods
@@ -559,13 +553,13 @@ NAME    READY   STATUS    RESTARTS   AGE
 meu-nginx   1/1     Running   0          32s
 ```
 
-O comando a seguir cria um objeto do k8s chamado de *Service*, que é utilizado justamente para expor *pods* para acesso externo.
+The following command creates a k8s object called *Service*, which is used precisely to expose *pods* for external access.
 
 ```
 kubectl expose pod meu-nginx
 ```
 
-Podemos listar todos os *services* com o comando a seguir.
+We can list all *services* with the following command.
 
 ```
 kubectl get services
@@ -575,13 +569,13 @@ kubernetes   ClusterIP   10.96.0.1       <none>        443/TCP   8d
 nginx        ClusterIP   10.105.41.192   <none>        80/TCP    2m30s
 ```
 
-Como é possível observar, há dois *services* no nosso *cluster*: o primeiro é para uso do próprio k8s, enquanto o segundo foi o quê acabamos de criar. 
+As you can see, there are two *services* in our *cluster*: the first is for use by k8s itself, while the second is the one we've just created.  
 
 &nbsp;
 
 #### Limpando tudo e indo para casa
 
-Para mostrar todos os recursos recém criados, pode-se utilizar uma das seguintes opções a seguir.
+To show all the newly created resources, you can use one of the following options.
 
 ```
 kubectl get all
@@ -591,14 +585,14 @@ kubectl get pod,service
 kubectl get pod,svc
 ```
 
-Note que o k8s nos disponibiliza algumas abreviações de seus recursos. Com o tempo você irá se familiar com elas. Para apagar os recursos criados, você pode executar os seguintes comandos.
+Note that k8s provides us with some abbreviations for its features. Over time you will become familiar with them. To delete the resources you have created, you can execute the following commands.
 
 ```
 kubectl delete -f pod-template.yaml
 kubectl delete service nginx
 ```
 
-Liste novamente os recursos para verificar se eles foram removidos.
+List the resources again to check if they have been removed.
 
 
 &nbsp;
