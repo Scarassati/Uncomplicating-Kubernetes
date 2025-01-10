@@ -149,62 +149,62 @@ Let's create a Yaml file called pod.yaml with the following content
 
 ```yaml
 apiVersion: v1 # versão da API do Kubernetes
-kind: Pod # tipo do objeto que estamos criando
-metadata: # metadados do Pod 
-  name: giropops # nome do Pod que estamos criando
+kind: Pod # object type that we are creating
+metadata: # Pod metadata
+  name: giropops # Pod name that we are creating
   labels: # labels do Pod
-    run: giropops # label run com o valor giropops
-spec: # especificação do Pod
-  containers: # containers que estão dentro do Pod
-  - name: giropops # nome do container
-    image: nginx # imagem do container
-    ports: # portas que estão sendo expostas pelo container
-    - containerPort: 80 # porta 80 exposta pelo container
+    run: giropops # label run with the value giropops
+spec: # Pod specifications
+  containers: # containers inside the Pod
+  - name: giropops # Container name
+    image: nginx # Container image
+    ports: # ports that are being exposed by the container
+    - containerPort: 80 # port 80 exposed by the container
 ```
 
-Agora, vamos criar o Pod usando o arquivo YAML que acabamos de criar.
+Now, Let's create the pod using YAML filme that we have just created.
 
 ```bash
 kubectl apply -f pod.yaml
 ```
 
-O comando acima irá criar o Pod usando o arquivo YAML que criamos.
+The above command will create the Pod using the YAML file we created.
 
-Para ver o Pod criado, podemos usar o comando:
+To see the Pod created we can use the command:
 
 ```bash
 kubectl get pods
 ```
 
-Já que usamos o comando `apply`, acho que vale a pena explicar o que ele faz.
+Since we're using the `apply` command, I think it's worth explaining what it does.
 
-O comando `apply` é um comando que faz o que o nome diz, ele aplica o arquivo YAML no cluster, ou seja, ele cria o objeto que está descrito no arquivo YAML no cluster. Caso o objeto já exista, ele irá atualizá-lo com as informações que estão no arquivo YAML.
+The `apply` command is a command that does what the name says, it applies the YAML file to the cluster, that is, it creates the object that is described in the YAML file in the cluster. If the object already exists, it will update it with the information in the YAML file.
 
-Um outro comando que você pode usar para criar um objeto no cluster é o comando `create`, que também cria o objeto que está descrito no arquivo YAML no cluster, porém, caso o objeto já exista, ele irá retornar um erro. E por esse motivo que o comando `apply` é mais usado, pois ele atualiza o objeto caso ele já exista. :)
+Another command you can use to create an object in the cluster is the `create` command, which also creates the object described in the YAML file in the cluster, but if the object already exists, it will return an error. That's why the `apply` command is more commonly used, because it updates the object if it already exists. :)
 
-Agora, vamos ver os detalhes do Pod que acabamos de criar.
+Now, let's look at the details of the Pod we've just created.
 
 ```bash
 kubectl describe pods giropops
 ```
 
-#### Visualizando os logs do Pod
+#### Viewing the Pod logs
 
-Outro comando muito útil para ver o que está acontecendo com o Pod, mais especificamente ver o que o container está logando, é o comando:
+Another very useful command to see what is happening with the Pod, more specifically to see what the container is logging, is the command:
 
 ```bash
 kubectl logs giropops
 ```
 
-Sendo que giropops é o nome do Pod que criamos.
+Where giropops is the name of the Pod we created.
 
-Se você quiser ver os logs do container em tempo real, você pode usar o comando:
+If you want to see the container logs in real time, you can use the command:
 
 ```bash
 kubectl logs -f giropops
 ```
 
-Simples né? Agora, vamos remover o Pod que criamos, usando o comando:
+Simple, right? Now, let's remove the Pod we created, using the command:
 
 ```bash
 kubectl delete pods giropops
@@ -212,99 +212,99 @@ kubectl delete pods giropops
 
 &nbsp;
 
-#### Criando um Pod com mais de um container
+#### Creating a Pod with more than one container
 
-Vamos criar um arquivo YAML chamado pod-multi-container.yaml com o seguinte conteúdo:
+Let's create a YAML file called pod-multi-container.yaml with the following content:
 
 ```yaml
-apiVersion: v1 # versão da API do Kubernetes
-kind: Pod # tipo do objeto que estamos criando
-metadata: # metadados do Pod 
-  name: giropops # nome do Pod que estamos criando
-  labels: # labels do Pod
-    run: giropops # label run com o valor giropops
-spec: # especificação do Pod
-  containers: # containers que estão dentro do Pod
-  - name: girus # nome do container
-    image: nginx # imagem do container
-    ports: # portas que estão sendo expostas pelo container
-    - containerPort: 80 # porta 80 exposta pelo container
-  - name: strigus # nome do container
-    image: alpine # imagem do container
+apiVersion: v1 # APIVersion the kubernetes
+kind: Pod # object type that we are creating
+metadata: # Pods metadata
+  name: giropops # name the pods that we are creating
+  labels: # Pod labels
+    run: giropops # label run with the value giropops
+spec: # Pod specifications
+  containers: # Container inside the Pod
+  - name: girus # Container name
+    image: nginx # Container image
+    ports: # ports that are being exposed by the container
+    - containerPort: 80 # port 80 exposed by the container
+  - name: strigus # Container name
+    image: alpine # Container image
     args:
     - sleep
     - "1800"
 ```
 
-Com o manifesto acima, estamos criando um Pod com dois containers, um container chamado girus com a imagem nginx e outro container chamado strigus com a imagem alpine. Um coisa importante de lembrar é que o container do Alpine está sendo criado com o comando `sleep 1800` para que o container não pare de rodar, diferente do container do Nginx que possui um processo principal que fica sendo executado em primeiro plano, fazendo com que o container não pare de rodar.
+With the manifest above, we are creating a Pod with two containers, a container called girus with the nginx image and another container called strigus with the alpine image. An important thing to remember is that the Alpine container is being created with the `sleep 1800` command so that the container doesn't stop running, unlike the Nginx container which has a main process running in the foreground, so that the container doesn't stop running.
 
-O Alpine é uma distribuição Linux que é muito leve, e não possui um processo principal que fica sendo executado em primeiro plano, por isso, precisamos executar o comando `sleep 1800` para que o container não pare de rodar, adicionando assim um processo principal que fica sendo executado em primeiro plano.
+Alpine is a Linux distribution that is very light, and doesn't have a main process running in the foreground, so we need to run the `sleep 1800` command so that the container doesn't stop running, thus adding a main process that runs in the foreground.
 
-Agora, vamos criar o Pod usando o arquivo YAML que acabamos de criar.
+Now, Let's create the pod using YAML filme that we have just created.
 
 ```
 kubectl apply -f pod-multi-container.yaml
 ```
 
-Para ver o Pod criado, podemos usar o comando:
+To see the Pod created, we can use the command:
 
 ```bash
 kubectl get pods
 ```
 
-Agora, vamos ver os detalhes do Pod que acabamos de criar.
+Now, let's look at the details of the Pod we've just created.
 
 ```bash
 kubectl describe pods giropops
 ```
 
-### Os comandos `attach` e `exec`
+### Comands `attach` and `exec`
 
-Vamos conhecer dois novos comandos, o `attach` e o `exec`.
+Let's get to know two new commands, `attach` and `exec`.
 
-O comando `attach` é usado para se conectar a um container que está rodando dentro de um Pod. Por exemplo, vamos se conectar ao container do Alpine que está rodando dentro do Pod que criamos.
+The `attach` command is used to connect to a container that is running inside a Pod. For example, let's connect to the Alpine container that is running inside the Pod we created.
 
 ```bash
 kubectl attach giropops -c strigus
 ```
 
-Usando o `attach` é como se estivéssemos conectando diretamente em uma console de uma máquina virtual, não estamos criando nenhum processo dentro do container, apenas nos conectando a ele.
+Using `attach` is as if we were connecting directly to a virtual machine console, we're not creating any processes inside the container, we're just connecting to it.
 
-Por esse motivo se tentarmos utilizar o `attach` para conectar no container que está rodando o Nginx, nós iremos conectar ao container e ficaremos presos ao processo do Nginx que está em execução em primeiro plano, e não conseguiremos executar nenhum outro comando.
+For this reason, if we try to use `attach` to connect to the container that is running Nginx, we will connect to the container and we will be stuck with the Nginx process that is running in the foreground, and we won't be able to execute any other commands.
 
 ```bash
 kubectl attach giropops -c girus
 ```
 
-Para sair do container, basta apertar a tecla `Ctrl + C`.
+To exit the container, simply press `Ctrl + C`.
 
-Entendeu? Só vamos usar o `attach` para se conectar a um container que está rodando dentro de um Pod, e não para executar comandos dentro do container.
+Got it? We're only going to use `attach` to connect to a container that's running inside a Pod, not to execute commands inside the container.
 
-Agora, se você está afim de executar comandos dentro do container, você pode usar o comando `exec`.
+Now, if you want to execute commands inside the container, you can use the `exec` command.
 
-O comando `exec` é usado para executar comandos dentro de um container que está rodando dentro de um Pod. Por exemplo, vamos executar o comando `ls` dentro do container do Alpine que está rodando dentro do Pod que criamos.
+The `exec` command is used to execute commands inside a container that is running inside a Pod. For example, let's run the `ls` command inside the Alpine container that is running inside the Pod we created.
 
 ```bash
 kubectl exec giropops -c strigus -- ls
 ```
 
-Nós também podemos utilizar o `exec` para conectar em uma container que está rodando dentro de um Pod, porém, para isso, precisamos passar o parâmetro `-it` para o comando `exec`.
+We can also use `exec` to connect to a container that is running inside a Pod, but to do this we need to pass the `-it` parameter to the `exec` command.
 
 ```bash
 kubectl exec giropops -c strigus -it -- sh
 ```
 
-O parametro `-it` é usado para que o comando `exec` crie um processo dentro do container com interatividade e com um terminal, fazendo com que o comando `exec` se comporte como o comando `attach`, porém com a diferença que o comando `exec` cria um processo dentro do container, no caso o processo `sh`. E por esse motivo que o comando `exec` é mais usado, pois ele cria um processo dentro do container, diferente do comando `attach` que não cria nenhum processo dentro do container.
+The `-it` parameter is used so that the `exec` command creates a process inside the container with interactivity and a terminal, making the `exec` command behave like the `attach` command, but with the difference that the `exec` command creates a process inside the container, in this case the `sh` process. This is why the `exec` command is most commonly used, because it creates a process inside the container, unlike the `attach` command, which doesn't create any processes inside the container.
 
-Nesse caso, podemos até mesmo conectar no container do Nginx, pois ele vai conectar no container criando um processo que é o nosso interpretador de comandos `sh`, sendo possível executar qualquer comando dentro do container pois temos um shell para interagir com o container.
+In this case, we can even connect to the Nginx container, because it will connect to the container by creating a process that is our `sh` command interpreter, and we can execute any command inside the container because we have a shell to interact with the container.
 
 ```bash
 kubectl exec giropops -c girus -it -- sh
 ```
 
-Para sair do container, basta apertar a tecla `Ctrl + D`.
+To exit the container, simply press `Ctrl + D`.
 
-Não esqueça de deletar o Pod que criamos.
+Don't forget to delete the Pod we created.
 
 ```bash
 kubectl delete pods giropops
@@ -312,67 +312,67 @@ kubectl delete pods giropops
 
 &nbsp;
 
-### Criando um container com limites de memória e CPU
+### Create the Pods with limits memory and CPU
 
-Vamos criar um arquivo YAML chamado pod-limitado.yaml com o seguinte conteúdo:
+Let's create a YAML file called pod-limited.yaml with the following content:
 
 ```yaml
-apiVersion: v1 # versão da API do Kubernetes
-kind: Pod # tipo do objeto que estamos criando
-metadata: # metadados do Pod
-  name: giropops # nome do Pod que estamos criando
-  labels: # labels do Pod
-    run: giropops # label run com o valor giropops
-spec: # especificação do Pod 
-  containers: # containers que estão dentro do Pod 
-  - name: girus # nome do container 
-    image: nginx # imagem do container
-    ports: # portas que estão sendo expostas pelo container
-    - containerPort: 80 # porta 80 exposta pelo container
-    resources: # recursos que estão sendo utilizados pelo container
-      limits: # limites máximo de recursos que o container pode utilizar
-        memory: "128Mi" # limite de memória que está sendo utilizado pelo container, no caso 128 megabytes no máximo 
-        cpu: "0.5" # limite máxima de CPU que o container pode utilizar, no caso 50% de uma CPU no máximo
-      requests: # recursos garantidos ao container
-        memory: "64Mi" # memória garantida ao container, no caso 64 megabytes
-        cpu: "0.3" # CPU garantida ao container, no caso 30% de uma CPU
+apiVersion: v1 # ApiVersion Kubernetes
+kind: Pod # object type that we are creating
+metadata: # Pod metadata
+  name: giropops # name the pods that we are creating
+  labels: # Pod label
+    run: giropops # label run with the giropops value
+spec: # Pod specifications
+  containers: # containers inside the Pod 
+  - name: girus # Container name
+    image: nginx # Container image
+    ports: #  ports that are being exposed by the container
+    - containerPort: 80 # port 80 exposed by the container
+    resources: # resources being used by the container
+      limits: # maximum resource limits that the container can use
+        memory: "128Mi" # memory limit being used by the container, in this case 128 megabytes maximum 
+        cpu: "0.5" # maximum CPU limit that the container can use, in this case 50% of a CPU maximum
+      requests: # resources guaranteed to the container
+        memory: "64Mi" # guaranteed memory for the container, in this case 64 megabytes
+        cpu: "0.3" # CPU guaranteed to the container, in this case 30% of a CPU
 ```
 
-Veja que estamos conhecendo alguns novos campos, o `resources`, o `limits` e o `requests`.
+See that we are getting to know some new fields, `resources`, `limits` and `requests`.
 
-O campo `resources` é usado para definir os recursos que serão utilizados pelo container, e dentro dele temos os campos `limits` e `requests`.
+The `resources` field is used to define the resources that will be used by the container, and within it we have the `limits` and `requests` fields.
 
-O campo `limits` é usado para definir os limites máximos de recursos que o container pode utilizar, e o campo `requests` é usado para definir os recursos garantidos ao container.
+The `limits` field is used to define the maximum resource limits that the container can use, and the `requests` field is used to define the resources guaranteed to the container.
 
-Simples demais! 
+Too simple! 
 
-Os valores que passamos para os campos `limits` e `requests` foram:
+The values we passed to the `limits` and `requests` fields were:
 
-- `memory`: quantidade de memória que o container pode utilizar, por exemplo, `128Mi` ou `1Gi`. O valor `Mi` significa mebibytes e o valor `Gi` significa gibibytes. O valor `M` significa megabytes e o valor `G` significa gigabytes. O valor `Mi` é usado para definir o limite de memória em mebibytes, pois o Kubernetes utiliza o sistema de unidades binárias, e não o sistema de unidades decimais. O valor `M` é usado para definir o limite de memória em megabytes, pois o Docker utiliza o sistema de unidades decimais, e não o sistema de unidades binárias. Então, se você estiver utilizando o Docker, você pode usar o valor `M` para definir o limite de memória, mas se você estiver utilizando o Kubernetes, você deve usar o valor `Mi` para definir o limite de memória.
+- `memory`: amount of memory the container can use, for example, `128Mi` or `1Gi`. The value `Mi` means mebibytes and the value `Gi` means gibibytes. The value `M` stands for megabytes and the value `G` for gigabytes. The value `Mi` is used to define the memory limit in mebibytes, because Kubernetes uses the binary unit system, not the decimal unit system. The value `M` is used to define the memory limit in megabytes, because Docker uses the decimal unit system, not the binary unit system. So, if you're using Docker, you can use the `M` value to set the memory limit, but if you're using Kubernetes, you should use the `Mi` value to set the memory limit.
 
-- `cpu`: quantidade de CPU que o container pode utilizar, por exemplo, `0.5` ou `1`. O valor `0.5` significa 50% de uma CPU, e o valor `1` significa 100% de uma CPU. O valor `m` significa millicpu, ou seja, milicpu é igual a 1/1000 de uma CPU. Então, se você quiser definir o limite de CPU em 50% de uma CPU, você pode definir o valor `500m`, ou você pode definir o valor `0.5`, que é o mesmo que definir o valor `500m`.
+- `cpu`: amount of CPU the container can use, for example, `0.5` or `1`. The value `0.5` means 50% of a CPU, and the value `1` means 100% of a CPU. The value `m` stands for millicpu, i.e. millicpu equals 1/1000 of a CPU. So, if you want to set the CPU limit to 50% of a CPU, you can set the value `500m`, or you can set the value `0.5`, which is the same as setting the value `500m`.
 
-Agora vamos criar o Pod com os limites de memória e CPU.
+Now let's create the Pod with the memory and CPU limits.
 
 ```bash
 kubectl create -f pod-limitado.yaml
 ```
 
-Agora vamos verificar se o Pod foi criado.
+Now let's check that the Pod has been created.
 
 ```bash
 kubectl get pods
 ```
 
-Vamos verificar os detalhes do Pod.
+Let's check the details of the Pod.
 
 ```bash
 kubectl describe pod giropops
 ```
 
-Veja que o Pod foi criado com sucesso, e que os limites de memória e CPU foram definidos conforme o arquivo YAML. 
+You can see that the Pod has been created successfully, and that the memory and CPU limits have been set according to the YAML file. 
 
-Veja abaixo a parte da saída do comando `describe` que mostra os limites de memória e CPU.
+Below is the part of the output from the `describe` command that shows the memory and CPU limits.
 
 ```bash
 Containers:
@@ -397,13 +397,13 @@ Containers:
       /var/run/secrets/kubernetes.io/serviceaccount from default-token-0b0b0 (ro)
 ```
 
-Veja que na saída acima, ele mostra o campo CPU com o valor `500m`, isso significa que o container pode utilizar no máximo 50% de uma CPU, afinal um CPU é igual a 1000 milliCPUs, e 50% de 1000 milicpus é 500 milliCPUs.
+See that in the output above, it shows the CPU field with the value `500m`, which means that the container can use a maximum of 50% of a CPU, after all one CPU is equal to 1000 milliCPUs, and 50% of 1000 millicpus is 500 milliCPUs.
 
-Para você testar os limites de memória e CPU, você pode executar o comando `stress` dentro do container, que é um comando que faz o container consumir recursos de CPU e memória. Lembre-se de instalar o comando `stress`, pois ele não vem instalado por padrão.
+To test the memory and CPU limits, you can run the `stress` command inside the container, which is a command that makes the container consume CPU and memory resources. Remember to install the `stress` command, as it is not installed by default.
 
-Para ficar fácil de testar, vamos criar um Pod com o Ubuntu com limitação de memória, e vamos instalar o comando `stress` dentro do container.
+To make it easy to test, let's create a Pod with Ubuntu with limited memory, and let's install the `stress` command inside the container.
 
-Crie o arquivo `pod-ubuntu-limitado.yaml`.
+Create the file `pod-ubuntu-limited.yaml`.
 
 ```yaml
 apiVersion: v1
@@ -426,112 +426,111 @@ spec:
         cpu: "0.3"
 ```
 
-Olha essa sacadinha do parâmetro `infinity`, ele faz o container esperar para sempre e assim, se manter em execução.
+Look at the `infinity` parameter, it makes the container wait forever and thus keeps it running.
 
-Agora vamos criar o Pod.
+Now let's create the Pod.
 
 ```bash
 kubectl create -f pod-ubuntu-limitado.yaml
 ```
 
-Agora vamos verificar se o Pod foi criado.
+Now let's check that the Pod has been created.
 
 ```bash
 kubectl get pods
 ```
 
-Agora vamos para dentro do container.
+Now let's go inside the container.
 
 ```bash
 kubectl exec -it ubuntu -- bash
 ```
 
-Agora vamos instalar o comando `stress`.
+Now let's install the `stress` command.
 
 ```bash
 apt update
 apt install -y stress
 ```
 
-Agora vamos executar o comando `stress` para consumir memória.
+Now let's run the `stress` command to consume memory.
 
 ```bash
 stress --vm 1 --vm-bytes 100M
 ```
 
-Até aqui tudo bem, pois definimos o limite de memória em 128Mi, e o comando `stress` está consumindo 100M, então está tudo certo.
+So far so good, because we've set the memory limit to 128Mi, and the `stress` command is consuming 100M, so everything is fine.
 
-Vamos aumentar o consumo de memória para 200M.
+Let's increase the memory consumption to 200M.
 
 ```bash
 stress --vm 1 --vm-bytes 200M
 ```
 
-Veja que o comando `stress` não consegue consumir 200M, pois o limite de memória é 128Mi, e 128Mi é menor que 200M e com isso tomamos o erro e o comando `stress` é interrompido.
+See that the `stress` command can't consume 200M, because the memory limit is 128Mi, and 128Mi is less than 200M, so we get an error and the `stress` command is interrupted.
 
-Atigimos o nosso objetivo, atingimos o limite do nosso container! :D
+We've reached our goal, we've reached the limit of our container! :D
 
-Quer brincar um pouco mais com o comando `stress`? Veja o `--help` dele.
+Want to play with the `stress` command a bit more? Take a look at its `--help`.
 
 ```bash
 stress --help
 ```
 
-Ele traz várias opções para você brincar com o consumo de memória e CPU.
-
+It has several options for you to play around with memory and CPU consumption.
 
 &nbsp;
 
-### Adicionando um volume EmptyDir no Pod
+### Adding an EmptyDir volume to Pod
 
-Primeira coisa, nesse momento não é o momento de entrar em maiores detalhes sobre volumes, nós teremos um dia inteiro para falar sobre volumes, então não se preocupe com isso agora.
+First of all, this isn't the time to go into more detail about volumes, we'll have a whole day to talk about volumes, so don't worry about that now.
 
-O dia de hoje é para que possamos ficar bastante confortável com os Pods, desde sua criação, administração, execução de comandos, etc.
+Today is for us to get very comfortable with Pods, from their creation, administration, command execution, etc.
 
-Então, vamos criar um Pod com um volume EmptyDir.
+So, let's create a Pod with an EmptyDir volume.
 
-Antes, o que é um volume EmptyDir?
+First, what is an EmptyDir volume?
 
-Um volume do tipo EmptyDir é um volume que é criado no momento em que o Pod é criado, e ele é destruído quando o Pod é destruído, ou seja, ele é um volume temporário.
+An EmptyDir volume is a volume that is created when the Pod is created, and it is destroyed when the Pod is destroyed, i.e. it is a temporary volume.
 
-No dia-a-dia, você não vai usar muito esse tipo de volume, mas é importante que você saiba que ele existe. Um dos casos de uso mais comuns é quando você precisa compartilhar dados entre os containers de um Pod. Imagina que você tem dois containers em um Pod e um deles possui um diretório com dados, e você quer que o outro container tenha acesso a esses dados. Nesse caso, você pode criar um volume do tipo EmptyDir e compartilhar esse volume entre os dois containers.
+On a day-to-day basis, you won't use this type of volume much, but it's important that you know it exists. One of the most common use cases is when you need to share data between the containers in a Pod. Imagine you have two containers in a Pod and one of them has a directory with data, and you want the other container to have access to that data. In this case, you can create a volume of type EmptyDir and share this volume between the two containers.
 
-Chame o arquivo de `pod-emptydir.yaml`.
+Call the file `pod-emptydir.yaml`.
 
 ```yaml
-apiVersion: v1 # versão da API do Kubernetes
-kind: Pod # tipo de objeto que estamos criando
-metadata: # metadados do Pod
-  name: giropops # nome do Pod
-spec: # especificação do Pod
-  containers: # lista de containers
-  - name: girus # nome do container 
-    image: ubuntu # imagem do container
-    args: # argumentos que serão passados para o container
-    - sleep # usando o comando sleep para manter o container em execução
-    - infinity # o argumento infinity faz o container esperar para sempre
-    volumeMounts: # lista de volumes que serão montados no container
-    - name: primeiro-emptydir # nome do volume
-      mountPath: /giropops # diretório onde o volume será montado 
+apiVersion: v1 
+kind: Pod 
+metadata: 
+  name: giropops 
+spec: 
+  containers: 
+  - name: girus  
+    image: ubuntu
+    args: 
+    - sleep 
+    - infinity 
+    volumeMounts: 
+    - name: primeiro-emptydir 
+      mountPath: /giropops  
   volumes: # lista de volumes
-  - name: primeiro-emptydir # nome do volume
-    emptyDir: # tipo do volume
-      sizeLimit: 256Mi # tamanho máximo do volume
+  - name: primeiro-emptydir 
+    emptyDir: 
+      sizeLimit: 256Mi 
 ```
 
-Agora vamos criar o Pod.
+Now let's create the Pod.
 
 ```bash
 kubectl create -f pod-emptydir.yaml
 ```
 
-Agora vamos verificar se o Pod foi criado.
+Now let's check that the Pod has been created.
 
 ```bash
 kubectl get pods
 ```
 
-Você pode ver a saída do comando `kubectl describe pod giropops` para ver o volume que foi criado.
+You can view the output of the `kubectl describe pod giropops` command to see the volume that was created.
 
 ```bash
 kubectl describe pod giropops
@@ -545,24 +544,24 @@ Volumes:
     SizeLimit:  256Mi
 ```
 
-Agora vamos para dentro do container.
+Now let's go inside the container.
 
 ```bash
 kubectl exec -it giropops -- bash
 ```
 
-Agora vamos criar um arquivo dentro do diretório `/giropops`.
+Now let's create a file in the `/giropops` directory.
 
 ```bash
 touch /giropops/FUNCIONAAAAAA
 ```
 
-Pronto, o nosso arquivo foi criado dentro do diretório `/giropops`, que é um diretório dentro do volume do tipo EmptyDir.
+That's it, our file has been created inside the `/giropops` directory, which is a directory inside a volume of type EmptyDir.
 
-Se você digitar `mount`, vai ver que o diretório `/giropops` está montado certinho dentro de nosso container.
+If you type `mount`, you'll see that the `/giropops` directory is mounted correctly inside our container.
 
-Pronto, agora você já sabe criar um Pod com um volume do tipo EmptyDir. :)
+There, now you know how to create a Pod with an EmptyDir volume. :)
 
-Lembrando mais uma vez que ainda vamos ver muito, mas muito mais sobre volumes, então não se preocupe com isso agora.
+Remember once again that we're still going to see much, much more about volumes, so don't worry about that now.
 
 &nbsp;
